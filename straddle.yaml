@@ -1,0 +1,23 @@
+# updater — app-side staging + trigger for the single-app + updater-partition
+# firmware update model (supersedes the A/B `ota` straddle).
+#
+# This straddle stages-and-triggers only: it checks a manually-placed
+# /state/flashme.bin, guards against overwriting the `state` partition,
+# sets boot to the updater app slot, and reboots. The updater partition
+# (the actual flasher), the download path, and signature verification are
+# not part of this straddle.
+schema_version: 1
+name: spangap/updater
+prefix: updater
+version: 0.1.0
+firmware: esp-idf
+platforms: [idf]
+# core is implicit; net is NOT required yet (added when the download/wget
+# path lands). No browser half in this slice.
+requires: []
+# Auto-init: folded into the generated spangapInitStraddles() dispatcher.
+# updaterInit() does post-update cleanup, subscribes to updater.cmd.*, and
+# registers the `updater` CLI verb. Runs in the straddle band, after the
+# platform band — storage/cli/fs are all up by then.
+init:
+  - call: updaterInit
