@@ -9,7 +9,7 @@
 schema_version: 1
 name: spangap/updater
 prefix: updater
-version: 0.1.0
+version: 0.0.0
 firmware: esp-idf
 platforms: [idf]
 # core is implicit; net is NOT required yet (added when the download/wget
