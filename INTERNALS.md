@@ -127,10 +127,10 @@ flasher writes it. The guard rejects that before the boot-flip. It is a bound on
 
 ## 5. Boot cleanup, command surface, lifecycle
 
-`updaterInit` is invoked from the generated `spangapInitStraddles()` dispatcher in
-the straddle band (after the platform band, so storage / CLI / fs are all up). It
-is plain C++ linkage, **not** `extern "C"` — the dispatcher emits a C++ forward
-declaration. It:
+`updaterInit` is invoked from the generated `serviceRunInit()` walk in the
+straddle band (after the platform band, so storage / CLI / fs are all up), as an
+`init:` hook the generator wraps in an adapter Service. It is plain C++ linkage,
+**not** `extern "C"` — the generated dispatch emits a C++ forward declaration. It:
 
 1. Deletes a leftover `fsStatePath("/flashme.bin")` if present (§1). This fires on
    *every* main-app boot, not just post-update — if a `flashme.bin` is sitting

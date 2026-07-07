@@ -167,7 +167,7 @@ void cliCmd(const char* args) {
 
 }  /* namespace */
 
-void updaterInit(void) {
+void UpdaterService::onInit() {
     /* Post-update cleanup: we're the main app, so any prior staged image is
      * spent. Delete a leftover /flashme.bin if present. */
     std::string path = fsStatePath("/flashme.bin");

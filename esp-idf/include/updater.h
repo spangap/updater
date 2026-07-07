@@ -20,10 +20,13 @@
 #ifndef SPANGAP_UPDATER_H
 #define SPANGAP_UPDATER_H
 
+#include "service.h"
+
 /** Post-update cleanup, subscribe to updater.cmd.*, register the `updater` CLI
- *  verb. Folded into the generated spangapInitStraddles() dispatcher, which
- *  emits a C++-linkage forward declaration — so this is plain C++ linkage,
- *  NOT extern "C". */
-void updaterInit(void);
+ *  verb. Registered as a boot service; onInit() runs in the straddle band. */
+class UpdaterService : public Service {
+public:
+    void onInit() override;
+};
 
 #endif

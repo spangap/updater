@@ -15,9 +15,9 @@ platforms: [idf]
 # core is implicit; net is NOT required yet (added when the download/wget
 # path lands). No browser half in this slice.
 requires: []
-# Auto-init: folded into the generated spangapInitStraddles() dispatcher.
-# updaterInit() does post-update cleanup, subscribes to updater.cmd.*, and
-# registers the `updater` CLI verb. Runs in the straddle band, after the
-# platform band — storage/cli/fs are all up by then.
-init:
-  - call: updaterInit
+# Boot service: constructed and registered by the generated dispatcher.
+# UpdaterService::onInit() does post-update cleanup, subscribes to
+# updater.cmd.*, and registers the `updater` CLI verb. Runs in the straddle
+# band, after the platform band — storage/cli/fs are all up by then.
+services:
+  - { class: UpdaterService, header: updater.h }
